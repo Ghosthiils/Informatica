@@ -41,7 +41,27 @@ const lista_produtos = [
 
 app.get("/produtos", function (req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*')
-    res.send(lista_produtos)
+    conexao.query("select * from produtos", function (erro, lista_produtos, campos) {
+        console.log(lista_produtos)
+        res.send(lista_produtos)
+    })
+})
+
+let mysql = require('mysql')
+let conexao = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "bd_loja"
+})
+
+conexao.connect(function (erro){
+    if(erro){
+        console.log("Deu ruim na conexao \n");
+        throw erro;
+    } else {
+        console.log("conexao deu bom \n")
+    }
 })
 
 
