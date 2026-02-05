@@ -35,15 +35,6 @@ function fnMontarCardProduto(produto){
 
 
 
-
-
-
-
-
-
-
-
-
 function fnCarregarDados() {
     fetch('http://localhost:3000/produtos/' , {method: 'GET'})
     .then(response => response.json())
