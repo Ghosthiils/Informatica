@@ -83,14 +83,14 @@ conexao.connect(function (erro){
 
 
 
-app.get('/unidades', function (req, res) {
+app.get('/', function (req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.send('unidades')
 })
 
 app.get("/unidades", function (req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*')
-    conexao.query("select * from produtos", function (erro, lista_unidades, campos) {
+    conexao.query("select * from produtos order by preco asc", function (erro, lista_unidades, campos) {
         console.log(lista_unidades)
         res.send(lista_unidades)
     })
@@ -101,9 +101,16 @@ app.get("/produtos/:categoria", function (req, res) {
     res.setHeader("Access-Control-Allow-Origin", '*')
     //pegamos a categoria que foi enviada na requisicao
     const categoria = req.params.categoria
-    conexao.query('Select * from produtos where categoria='${categoria}', function (erro, dados, campos){
-        res.send(dados) )
+    conexao.query('Select * from produtos where categoria=${categoria}', function (erro, dados, campos){
+        res.send(dados) })
 }),
+
+app.get('/produtos/:categoria/:ordem', function (req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.send('produtos')
+})
+
+
 
 
 
