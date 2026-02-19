@@ -153,14 +153,44 @@ app.post("/login/" , function (req, res) {
         if (erro) {
             res.send(erro)
         }else{
-            if (resultado.lenght > 0) {
-                res.status(200).send('sucesso!')
+            if (resultado.leght > 0) {
+                res.sendStatus(200).send('sucesso!')
             } else {
-                res.status(401).send('invalido')
+                res.sendStatus(401).send('invalido')
             }
         }
     })
 })
+
+app.post("/cadastro", function (req, res) {
+
+    const {
+        usuario,
+        senha,
+        nome,
+        sobrenome,
+        cidade,
+        estado,
+        permissao
+    } = req.body
+
+    conexao.query(
+        `INSERT INTO usuarios 
+        (usuario, senha, nome, sobrenome, cidade, estado, permissao)
+        VALUES )`,
+        [usuario, senha, nome, sobrenome, cidade, estado, permissao],
+        function (erro, resultado) {
+
+            if (erro) {
+                console.log(erro)
+                return res.sendStatus(500)
+            }
+
+            return res.sendStatus(200)
+        }
+    )
+})
+
 
 
 
