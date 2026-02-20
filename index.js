@@ -192,6 +192,15 @@ app.post("/cadastro", function (req, res) {
 })
 
 
+app.get("/produto/:id" , function (req, res) {
+    const id = req.params.id
+    conexao.query("SELECT * FROM produtos where id = ? ", [id] ,
+        function (erro, dados, campos) {
+            res.json(dados)
+ })
+})
+
+
 
 
 
