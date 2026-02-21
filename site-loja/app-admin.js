@@ -18,6 +18,27 @@ function fnCarregarDados(){
     .catch(err => console.log(err.message))
 }
 
+<button type="button" class="btn" onClick="fnExcluirProduto(${produto.id}, event.target">Excluir</button>
+
+function excluirProduto(id) {
+
+    let confirmar = confirm("Tem certeza que deseja excluir?");
+
+   if (confirmar) {
+    fetch('http://localhost:3000/produto/' + id, {
+        method: 'DELETE' , 
+        headers: {
+            'Content Type': 'application/json',
+        }
+    })
+    .then(resposta => resposta.json())
+    .then((dados) => {
+        elemento.closest("tr").remove()
+    })
+    .catch(erro => console.log(erro.message))
+   }
+}
+
 
 
 

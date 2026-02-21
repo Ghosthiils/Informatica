@@ -45,8 +45,9 @@ function mostrarToast(mensagem, tipo = "success") {
 // ===============================
 // Função para cadastrar produto
 // ===============================
-function fnCadastrarProdutos() {
-
+function fnSalvarProdutos() {
+const parametros = new URLSearchParams(window.location.search);
+const id = parametros.get('id') + "/"
 
     
 
@@ -97,3 +98,42 @@ foto.addEventListener("blur", function () {
 btn_salvar.addEventListener("click", function () {
     fnCadastrarProdutos();
 });
+
+ function fnCarregarProdutos() {
+    const parametros = new URLSearchParams(window.location.search);
+    const id = parametros.get('id') + "/"
+
+    fetch('http://localhost:3000/produto/' + id, { method: 'GET'})
+    .then((resposta) => resposta.json())
+    .then((produtos) => {
+        produtos.forEach(produto => {
+            fnMontarProduto(produto)
+
+            
+        })
+        
+    })
+
+    .catch(err => console.log(err.message))
+}
+
+function fnMontarProduto(produto) {
+    document.getElementById("fundo-imagem").style.backgroundImage = `url(${produto.foto})`
+    document.getElementById("foto").value = produto.foto
+    document.getElementById("titulo").value = produto.titulo
+    document.getElementById("descricao").value = produto.descricao
+    document.getElementById("categoria").value = produto.categoria
+    document.getElementById("preco").value = produto.preco
+    document.getElementById("avaliacao").value = produto.avaliacao
+    
+}
+
+fetch('http://localhost:3000/produto/' + id, {
+    method: 'PUT',
+    headers: {
+        'content-Type': 'application/json',
+    },
+
+})
+
+fnCarregarDados()

@@ -200,6 +200,20 @@ app.get("/produto/:id" , function (req, res) {
  })
 })
 
+app.put("/produto/:id", function (req, res) {
+    const id = req.params.id
+    const data = req.body
+
+    conexao.query(`UPDATE produtos set ? where id = ${id}`, [data], function (erro, resultado){
+        {
+            if (erro) {
+                res.send(erro)
+            }
+        }
+        res.send({"status":200, "message": "Atualizado com sucesso"})
+    })
+})
+
 
 
 
